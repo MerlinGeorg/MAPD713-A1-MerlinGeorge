@@ -14,6 +14,7 @@ app.get("/products", (req, res) => {
 
 // Add a new product with a unique ID
 app.post("/product", (req, res) => {
+
   const productData = req.body;
   // Validate product data (must have productName and quantity)
   if (!productData || !productData.productName || !productData.quantity) {
@@ -26,23 +27,10 @@ app.post("/product", (req, res) => {
 
 // Delete all products
 app.delete("/product", (req, res) => {
-  const { id } = req.body;
-  if (!id) {
-    return res.status(400).json({ error: "Product ID is required" });
-  }
-
-  const productIndex = datastore.products.findIndex((p) => p.id === id);
-
-  if (productIndex === -1) {
-    return res.status(404).json({ error: `Product with ID ${id} is required` });
-  }
-
-  const deleteProduct = datastore.products.splice(productIndex, 1);
-
-  res.status(200).json({
-    message: `Product with ID ${id} deleted`,
-    product: deletedProduct,
-  });
+  // Clear the datastore products array
+  datastore.products = [];
+  // Respond with a success message
+  res.status(200).json({ message: "All products deleted" });
 });
 
 // Start the server on a specific port
