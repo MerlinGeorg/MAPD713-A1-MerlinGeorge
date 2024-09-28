@@ -7,19 +7,24 @@ let datastore = {
   products: [],
 };
 
+// Retrieve all products
 app.get("/products", (req, res) => {
   res.json(datastore.products);
 });
 
+// Add a new product with a unique ID
 app.post("/product", (req, res) => {
   const productData = req.body;
+  // Validate product data (must have productName and quantity)
   if (!productData || !productData.productName || !productData.quantity) {
     return res.status(400).json({ error: "Invalid Data" });
   }
+  // Add the new product to the datastore
   datastore.products.push(productData);
   res.status(201).json(productData);
 });
 
+// Delete all products
 app.delete("/product", (req, res) => {
   const { id } = req.body;
   if (!id) {
@@ -35,11 +40,12 @@ app.delete("/product", (req, res) => {
   const deleteProduct = datastore.products.splice(productIndex, 1);
 
   res.status(200).json({
-      message: `Product with ID ${id} deleted`,
-      product: deletedProduct,
-    });
+    message: `Product with ID ${id} deleted`,
+    product: deletedProduct,
+  });
 });
 
-app.listen(3000, ()=>{
-    console.log("Server is listening at port 3000")
-})
+// Start the server on a specific port
+app.listen(3000, () => {
+  console.log("Server is listening at port 3000");
+});
