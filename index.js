@@ -40,7 +40,7 @@ app.post("/product", (req, res) => {
 );
 
 // Delete all products
-app.delete("/product", (req, res) => {
+app.delete("/products", (req, res) => {
   // Clear the datastore products array
   datastore.products = [];
   // Respond with a success message
@@ -49,5 +49,5 @@ app.delete("/product", (req, res) => {
 
 // Start the server on a specific port
 app.listen(3000, () => {
-  console.log("Server is listening at port 3000");
+  console.log("Server is listening at port 3000 \nEndpoint: http://127.0.0.1:3000/products , method: GET, DELETE \nEndpoint: http://127.0.0.1:3000/product , method: POST");
 });
