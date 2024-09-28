@@ -39,3 +39,7 @@ app.delete("/product", (req, res) => {
       product: deletedProduct,
     });
 });
+
+app.listen(3000, ()=>{
+    console.log("Server is listening at port 3000")
+})
