@@ -20,13 +20,14 @@ const logRequestCounts = (req, res, next) => {
 app.get("/products",(req, res) => {
     getRequestCount++;
     res.json(datastore.products);
-    console.log("Received Request");
-  }, logRequestCounts
+    console.log("products GET: received request");
+  },logRequestCounts
 );
 
-// Add a new product with a unique ID
-app.post("/product", (req, res) => {
-    getRequestCount++;
+// Add new product
+app.post("/product",(req, res) => {
+    console.log("products POST: sending response");
+    postRequestCount++;
 
     const productData = req.body;
     // Validate product data (must have productName and quantity)
@@ -36,11 +37,12 @@ app.post("/product", (req, res) => {
     // Add the new product to the datastore
     datastore.products.push(productData);
     res.status(201).json(productData);
-  }, logRequestCounts
+  },logRequestCounts
 );
 
 // Delete all products
 app.delete("/products", (req, res) => {
+  console.log("products DELETE: Delete all products");
   // Clear the datastore products array
   datastore.products = [];
   // Respond with a success message
